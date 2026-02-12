@@ -102,8 +102,8 @@ export default function Orders() {
                                         <div>
                                             <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center">
                                                 Status: <span className={`ml-2 px-3 py-1 rounded-full text-sm capitalize ${order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                                                        order.status === 'placed' ? 'bg-yellow-100 text-yellow-800' :
-                                                            'bg-blue-100 text-blue-800'
+                                                    order.status === 'placed' ? 'bg-yellow-100 text-yellow-800' :
+                                                        'bg-blue-100 text-blue-800'
                                                     }`}>{order.status}</span>
                                             </h3>
 

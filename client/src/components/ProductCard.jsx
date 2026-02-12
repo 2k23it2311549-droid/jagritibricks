@@ -10,10 +10,10 @@ export default function ProductCard({ product }) {
     }
 
     return (
-        <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-gray-100 hover:border-brand-red/30">
+        <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-brand-red/30 dora-card dora-glow-cursor">
             <Link to={`/products/${product.id}`} className="block">
                 {/* Image Container */}
-                <div className="relative h-64 overflow-hidden bg-gray-100">
+                <div className="relative h-48 sm:h-64 overflow-hidden bg-gray-100">
                     <img
                         src={product.image_url || 'https://placehold.co/400x300/e63946/ffffff?text=Product'}
                         alt={product.name}
@@ -48,8 +48,8 @@ export default function ProductCard({ product }) {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                    <div className="mb-4">
+                <div className="p-4 sm:p-6">
+                    <div className="mb-3 sm:mb-4">
                         <div className="flex justify-between items-start mb-2">
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-red transition-colors line-clamp-1">
                                 {product.name}
@@ -65,9 +65,9 @@ export default function ProductCard({ product }) {
                         )}
                     </div>
 
-                    <div className="flex items-end justify-between mb-6">
+                    <div className="flex items-end justify-between mb-4 sm:mb-6">
                         <div className="flex items-baseline gap-1">
-                            <span className="text-2xl font-bold font-serif text-brand-red">₹{product.price}</span>
+                            <span className="text-xl sm:text-2xl font-bold font-serif text-brand-red">₹{product.price}</span>
                             <span className="text-sm text-gray-400 font-medium">/ {product.unit}</span>
                         </div>
                         {product.min_order_quantity > 1 && (
@@ -80,7 +80,7 @@ export default function ProductCard({ product }) {
                     <button
                         onClick={handleAddToCart}
                         disabled={product.stock === 0}
-                        className={`w-full py-3 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 transform active:scale-95 shadow-lg
+                        className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 transform active:scale-95 shadow-lg dora-spring-btn
                             ${product.stock === 0
                                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                                 : 'bg-gradient-to-r from-brand-red to-red-600 text-white hover:from-red-600 hover:to-brand-red hover:shadow-brand-red/30'

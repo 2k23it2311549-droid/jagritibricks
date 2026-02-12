@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import ScrollToTop from './components/ScrollToTop'
 import { HelmetProvider } from 'react-helmet-async'
 import AOS from 'aos'
@@ -23,17 +23,29 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Shipping from './pages/Shipping'
 import Returns from './pages/Returns'
+
 import FAQ from './pages/FAQ'
-import AdminLogin from './pages/admin/Login'
-import AdminDashboard from './pages/admin/Dashboard'
-import ProductManagement from './pages/admin/ProductManagement'
-import OrderManagement from './pages/admin/OrderManagement'
-import CreateOrder from './pages/admin/CreateOrder'
-import CustomerManagement from './pages/admin/CustomerManagement'
-import Settings from './pages/admin/Settings'
+import MaintenancePage from './pages/MaintenancePage'
+import { useSiteSettings } from './context/SiteSettingsContext'
 
 // Components
 import MainLayout from './components/MainLayout'
+import DoraEffects from './components/DoraEffects'
+import WelcomePopup from './components/WelcomePopup'
+
+function MaintenanceCheck({ children }) {
+    const { settings } = useSiteSettings()
+
+    if (settings.loading) {
+        return <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">Loading...</div>
+    }
+
+    if (settings.maintenance_mode) {
+        return <MaintenancePage />
+    }
+
+    return children
+}
 
 function App() {
     useEffect(() => {
@@ -50,36 +62,32 @@ function App() {
                 <CartProvider>
                     <SiteSettingsProvider>
                         <Router>
+                            <WelcomePopup />
+                            <DoraEffects />
                             <ScrollToTop />
-                            <Routes>
-                                {/* Public Customer Routes with MainLayout */}
-                                <Route element={<MainLayout />}>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="/products" element={<Products />} />
-                                    <Route path="/products/:id" element={<ProductDetails />} />
-                                    <Route path="/cart" element={<CartPage />} />
-                                    <Route path="/checkout" element={<Checkout />} />
-                                    <Route path="/about" element={<About />} />
-                                    <Route path="/contact" element={<Contact />} />
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="/signup" element={<Signup />} />
-                                    <Route path="/orders" element={<Orders />} />
-                                    <Route path="/privacy" element={<Privacy />} />
-                                    <Route path="/terms" element={<Terms />} />
-                                    <Route path="/shipping" element={<Shipping />} />
-                                    <Route path="/returns" element={<Returns />} />
-                                    <Route path="/faq" element={<FAQ />} />
-                                </Route>
 
-                                {/* Admin Routes - Standalone */}
-                                <Route path="/admin/login" element={<AdminLogin />} />
-                                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                                <Route path="/admin/products" element={<ProductManagement />} />
-                                <Route path="/admin/orders" element={<OrderManagement />} />
-                                <Route path="/admin/orders/create" element={<CreateOrder />} />
-                                <Route path="/admin/customers" element={<CustomerManagement />} />
-                                <Route path="/admin/settings" element={<Settings />} />
-                            </Routes>
+                            <MaintenanceCheck>
+                                <Routes>
+                                    {/* Public Customer Routes with MainLayout */}
+                                    <Route element={<MainLayout />}>
+                                        <Route path="/" element={<Home />} />
+                                        <Route path="/products" element={<Products />} />
+                                        <Route path="/products/:id" element={<ProductDetails />} />
+                                        <Route path="/cart" element={<CartPage />} />
+                                        <Route path="/checkout" element={<Checkout />} />
+                                        <Route path="/about" element={<About />} />
+                                        <Route path="/contact" element={<Contact />} />
+                                        <Route path="/login" element={<Login />} />
+                                        <Route path="/signup" element={<Signup />} />
+                                        <Route path="/orders" element={<Orders />} />
+                                        <Route path="/privacy" element={<Privacy />} />
+                                        <Route path="/terms" element={<Terms />} />
+                                        <Route path="/shipping" element={<Shipping />} />
+                                        <Route path="/returns" element={<Returns />} />
+                                        <Route path="/faq" element={<FAQ />} />
+                                    </Route>
+                                </Routes>
+                            </MaintenanceCheck>
                         </Router>
                     </SiteSettingsProvider>
                 </CartProvider>

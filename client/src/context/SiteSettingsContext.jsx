@@ -10,16 +10,30 @@ export function useSiteSettings() {
 export function SiteSettingsProvider({ children }) {
     const [settings, setSettings] = useState({
         phone: '+91 9876543210',
+        email: 'info@jagritibricks.com',
         address: '123 Construction Avenue, Industrial Area, City - 123456',
         facebook_url: 'https://facebook.com',
         instagram_url: 'https://instagram.com',
         twitter_url: 'https://twitter.com',
         whatsapp_number: '919876543210',
+        maintenance_mode: false,
         loading: true
     })
 
     useEffect(() => {
         fetchSettings()
+
+        // Subscribe to changes
+        const subscription = supabase
+            .channel('site_settings_changes')
+            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'site_settings' }, payload => {
+                setSettings(prev => ({ ...prev, ...payload.new }))
+            })
+            .subscribe()
+
+        return () => {
+            subscription.unsubscribe()
+        }
     }, [])
 
     const fetchSettings = async () => {

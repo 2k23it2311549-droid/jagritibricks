@@ -1,5 +1,5 @@
 {
-  "name": "jagritibuild-client",
+  "name": "jagritibuild-frontend",
   "private": true,
   "version": "1.0.0",
   "type": "module",

@@ -57,8 +57,8 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="flex items-center space-x-1">
+                    {/* Desktop Navigation - hidden on mobile */}
+                    <div className="hidden md:flex items-center space-x-1">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.path}
@@ -91,9 +91,9 @@ export default function Navbar() {
                             )}
                         </button>
 
-                        {/* User Menu */}
+                        {/* User Menu - Desktop only */}
                         {user ? (
-                            <div className="flex items-center space-x-2">
+                            <div className="hidden md:flex items-center space-x-2">
                                 <Link
                                     to="/orders"
                                     className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-brand-red hover:bg-gray-50 rounded-lg transition-all duration-200"
@@ -110,7 +110,7 @@ export default function Navbar() {
                         ) : (
                             <Link
                                 to="/login"
-                                className="inline-flex items-center px-5 py-2 bg-gradient-to-r from-brand-red to-red-600 text-white text-sm font-semibold rounded-lg hover:shadow-xl hover:shadow-brand-red/30 hover:scale-105 active:scale-95 shadow-md shadow-brand-red/20 transition-all duration-200"
+                                className="hidden md:inline-flex items-center px-5 py-2 bg-gradient-to-r from-brand-red to-red-600 text-white text-sm font-semibold rounded-lg hover:shadow-xl hover:shadow-brand-red/30 hover:scale-105 active:scale-95 shadow-md shadow-brand-red/20 transition-all duration-200"
                             >
                                 Login
                             </Link>
@@ -138,49 +138,49 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             <div
-                className={`md:hidden overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-96 border-t border-gray-100' : 'max-h-0'
+                className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-[500px] border-t border-gray-100' : 'max-h-0'
                     }`}
             >
-                <div className="px-4 py-4 space-y-1 bg-white">
+                <div className="px-4 py-3 space-y-1 bg-white">
                     {navLinks.map((link) => (
                         <Link
                             key={link.path}
                             to={link.path}
-                            className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive(link.path)
+                            className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-200 ${isActive(link.path)
                                 ? 'text-brand-red bg-brand-red/5 font-semibold'
-                                : 'text-gray-600 hover:text-brand-red hover:bg-gray-50'
+                                : 'text-gray-600 hover:text-brand-red hover:bg-gray-50 active:bg-gray-100'
                                 }`}
                         >
                             {link.name}
                         </Link>
                     ))}
-                    <div className="border-t border-gray-100 pt-3 mt-3">
+                    <div className="border-t border-gray-100 pt-3 mt-2">
                         {user ? (
                             <>
                                 <Link
                                     to="/orders"
-                                    className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-red hover:bg-gray-50"
+                                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium text-gray-600 hover:text-brand-red hover:bg-gray-50 active:bg-gray-100"
                                 >
                                     My Orders
                                 </Link>
                                 <button
                                     onClick={handleLogout}
-                                    className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-500 hover:text-brand-red hover:bg-gray-50"
+                                    className="flex items-center gap-3 w-full text-left px-4 py-3.5 rounded-xl text-base font-medium text-gray-500 hover:text-brand-red hover:bg-gray-50 active:bg-gray-100"
                                 >
                                     Logout
                                 </button>
                             </>
                         ) : (
-                            <div className="flex gap-3 px-4 py-2">
+                            <div className="flex gap-3 px-2 py-3">
                                 <Link
                                     to="/login"
-                                    className="flex-1 text-center py-2.5 bg-brand-red text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                                    className="flex-1 text-center py-3 bg-gradient-to-r from-brand-red to-red-600 text-white text-base font-bold rounded-xl shadow-md shadow-brand-red/20 active:scale-95 transition-transform"
                                 >
                                     Login
                                 </Link>
                                 <Link
                                     to="/signup"
-                                    className="flex-1 text-center py-2.5 border border-brand-red text-brand-red text-sm font-semibold rounded-lg hover:bg-brand-red/5 transition-colors"
+                                    className="flex-1 text-center py-3 border-2 border-brand-red text-brand-red text-base font-bold rounded-xl hover:bg-brand-red/5 active:scale-95 transition-all"
                                 >
                                     Sign Up
                                 </Link>

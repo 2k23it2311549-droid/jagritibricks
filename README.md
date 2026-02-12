@@ -4,7 +4,8 @@ A modern B2C/B2B marketplace for construction materials (Cement, Bricks, Sariya,
 
 ## Tech Stack
 
-- **Frontend**: React + Vite + Tailwind CSS
+- **Frontend (Customer)**: React + Vite + Tailwind CSS
+- **Admin Panel**: React + Vite + Tailwind CSS
 - **Backend**: Node.js + Express
 - **Database**: Supabase (PostgreSQL)
 - **Auth**: Supabase Auth
@@ -13,54 +14,58 @@ A modern B2C/B2B marketplace for construction materials (Cement, Bricks, Sariya,
 
 ```
 jagritibricks/
-├── client/          # React frontend
-│   ├── src/
-│   │   ├── components/    # Navbar, Footer, Hero, ProductCard, etc.
-│   │   ├── pages/         # Home, Products, Cart, Admin pages
-│   │   ├── context/       # CartContext
-│   │   ├── hooks/         # useAuth
-│   │   └── lib/           # Supabase client
-│   └── package.json
-├── server/          # Node.js backend (to be created)
-└── PRD.md          # Product Requirements Document
+├── frontend/        # Customer-facing React app (renamed from client)
+│   ├── src/pages/   # Home, Products, Cart, etc.
+│   └── src/components/
+├── admin/           # Admin Dashboard React app (Port 5174)
+│   ├── src/pages/   # Dashboard, Product Management, Orders, etc.
+│   └── src/components/
+├── backend/         # Node.js backend API (renamed from server)
+└── PRD.md           # Product Requirements Document
 ```
 
 ## Setup Instructions
 
-### Frontend Setup
+### 1. Frontend (Customer App)
 
-1. Navigate to the client directory:
 ```bash
-cd client
-```
-
-2. Install dependencies:
-```bash
+cd frontend
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
+Runs on: http://localhost:5173
 
-The app will run at http://localhost:5173
+### 2. Admin Panel
+
+```bash
+cd admin
+npm install
+npm run dev
+```
+Runs on: http://localhost:5174
+
+### 3. Backend API
+
+```bash
+cd backend
+npm install
+node index.js
+```
+Runs on: http://localhost:5000 (default)
 
 ## Features
 
 ### ✅ Completed
-- Database schema (4 tables with RLS policies)
-- Sample products (8 items across all categories)
-- React app with routing
-- Responsive Navbar with cart badge
-- Hero section with dark gradient design
-- Product listing with category filters and sorting
-- Product cards with hover effects
-- Shopping cart with localStorage persistence
-- WhatsApp floating button
-- Footer with contact info
-- About and Contact pages
-- Admin login page (UI only)
+- **Architecture**: Separated Frontend, Admin, and Backend
+- **Design**: Brand color updated to Orange (`#FF6B35`)
+- **Customer App**:
+  - Responsive Navbar & Hero
+  - Product listing & details
+  - Cart & Checkout flow
+- **Admin App**:
+  - Dashboard with charts
+  - Product & Order management
+  - Site settings
 
 ### 🚧 In Progress
 - Checkout flow
@@ -93,10 +98,9 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ## Color Palette
 
-- Brand Red: `#E63946`
+- Brand Orange: `#FF6B35` (Primary)
 - Dark Background: `#1A1A1A` / `#2D2D2D`
 - WhatsApp Green: `#25D366`
-- Accent Orange: `#FF6B35`
 - Trust Blue: `#457B9D`
 
 ## Design Inspiration

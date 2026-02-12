@@ -9,7 +9,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signIn, user } = useAuth()
+    const { signIn, signOut, user } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -26,18 +26,22 @@ export default function Login() {
         setLoading(true)
 
         try {
-            // Use username as pseudo-email logic
-            // Ensure username is clean
-            const cleanUsername = username.trim().toLowerCase().replace(/\s/g, '')
-            if (!cleanUsername) throw new Error("Username is required")
+            // Convert any username format to safe email behind the scenes
+            const displayName = username.trim()
+            const safeUsername = displayName
+                .toLowerCase()
+                .replace(/\s+/g, '') // Remove all spaces
+                .replace(/[^a-z0-9]/g, '') // Keep only alphanumeric
 
-            const email = `${cleanUsername}@jagritibricks.com`
+            if (!safeUsername) throw new Error("Username is required")
+
+            const email = `${safeUsername}@jagritibricks.com`
             const { data, error } = await signIn({ email, password })
             if (error) throw error
 
-            // Admin check is done in AuthContext or here?
+            // Admin check
             if (data?.user?.user_metadata?.role === 'admin') {
-                await useAuth().signOut()
+                await signOut()
                 throw new Error('Administrator accounts restricted. Please use the Admin Portal.')
             }
 
@@ -45,7 +49,17 @@ export default function Login() {
             navigate('/')
         } catch (error) {
             console.error(error)
-            setError(error.message === 'Invalid login credentials' ? 'Invalid username or password' : error.message)
+
+            // Enhanced error messages
+            if (error.message === 'Invalid login credentials') {
+                setError('Invalid username or password. Please check your credentials and try again.')
+            } else if (error.message.includes('Email not confirmed')) {
+                setError('Please verify your email address before logging in.')
+            } else if (error.message.includes('Admin')) {
+                setError(error.message)
+            } else {
+                setError(error.message || 'Login failed. Please try again.')
+            }
         } finally {
             setLoading(false)
         }
@@ -111,6 +125,7 @@ export default function Login() {
                                     name="username"
                                     type="text"
                                     required
+                                    autoFocus
                                     className="block w-full pl-10 pr-3 py-3.5 border border-gray-200 rounded-xl leading-5 bg-white/60 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red focus:bg-white transition-all duration-200 shadow-sm"
                                     placeholder="Enter your username"
                                     value={username}
@@ -156,14 +171,6 @@ export default function Login() {
                                     </div>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                        <div className="text-sm">
-                            <a href="#" className="font-medium text-brand-red hover:text-red-700 transition-colors">
-                                Forgot password?
-                            </a>
                         </div>
                     </div>
 

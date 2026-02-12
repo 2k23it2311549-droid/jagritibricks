@@ -198,8 +198,8 @@ export default function ProductDetails() {
                                 onClick={handleAddToCart}
                                 disabled={product.stock === 0}
                                 className={`flex - 1 py - 3 rounded - lg font - semibold transition ${product.stock === 0
-                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                        : 'bg-white border-2 border-brand-red text-brand-red hover:bg-brand-cream'
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    : 'bg-white border-2 border-brand-red text-brand-red hover:bg-brand-cream'
                                     } `}
                             >
                                 Add to Cart
@@ -208,8 +208,8 @@ export default function ProductDetails() {
                                 onClick={handleBuyNow}
                                 disabled={product.stock === 0}
                                 className={`flex - 1 py - 3 rounded - lg font - semibold transition ${product.stock === 0
-                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                        : 'bg-brand-red text-white hover:bg-red-700'
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    : 'bg-brand-red text-white hover:bg-red-700'
                                     } `}
                             >
                                 Buy Now

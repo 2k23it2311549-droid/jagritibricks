@@ -125,32 +125,34 @@ export default function Home() {
             <Hero />
 
             {/* Why Choose JagritiBricks */}
-            <section className="why-choose-section py-20 relative overflow-hidden bg-white">
+            <section className="why-choose-section py-20 relative overflow-hidden bg-white dora-section">
                 {/* Background decorative elements */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 left-0 w-72 h-72 bg-brand-red/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-orange/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div className="absolute top-0 left-0 w-72 h-72 bg-brand-red/5 rounded-full -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '5s' }}></div>
+                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-orange/5 rounded-full translate-x-1/3 translate-y-1/3 animate-pulse" style={{ animationDuration: '7s' }}></div>
+                    <div className="absolute top-1/2 left-1/4 w-1 h-1 bg-brand-red/30 rounded-full animate-particle" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-accent-orange/20 rounded-full animate-particle" style={{ animationDelay: '3s' }}></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-16" data-aos="fade-up">
-                        <span className="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red text-sm font-semibold rounded-full mb-4 tracking-wide uppercase">
+                    <div className="text-center mb-16 dora-reveal" data-aos="fade-up">
+                        <span className="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red text-sm font-semibold rounded-full mb-4 tracking-wide uppercase dora-float-label">
                             Our Promise
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 animate-text-glow">
                             Why Choose <span className="text-brand-red">JagritiBricks</span>
                         </h2>
                         <p className="text-gray-500 max-w-2xl mx-auto text-lg">
                             We're committed to delivering excellence at every step — from sourcing to your doorstep.
                         </p>
-                        <div className="w-24 h-1 bg-gradient-to-r from-brand-red to-accent-orange mx-auto mt-6 rounded-full"></div>
+                        <div className="w-24 h-1 bg-gradient-to-r from-brand-red to-accent-orange mx-auto mt-6 rounded-full animate-gradient" style={{ backgroundSize: '200% 200%' }}></div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 dora-stagger">
                         {whyChooseUs.map((item, index) => (
                             <div
                                 key={item.title}
-                                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2"
+                                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dora-card dora-morph"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
                             >
@@ -180,13 +182,13 @@ export default function Home() {
             </section>
 
             {/* Browse by Category */}
-            <section className="py-20 bg-gray-50">
+            <section className="py-20 bg-gray-50 dora-section">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-14" data-aos="fade-up">
-                        <span className="inline-block px-4 py-1.5 bg-accent-orange/10 text-accent-orange text-sm font-semibold rounded-full mb-4 tracking-wide uppercase">
+                    <div className="text-center mb-14 dora-reveal" data-aos="fade-up">
+                        <span className="inline-block px-4 py-1.5 bg-accent-orange/10 text-accent-orange text-sm font-semibold rounded-full mb-4 tracking-wide uppercase dora-float-label">
                             Our Products
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4">
                             Browse by Category
                         </h2>
                         <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -195,12 +197,12 @@ export default function Home() {
                         <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-brand-red mx-auto mt-6 rounded-full"></div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 dora-stagger">
                         {categories.map((category, index) => (
                             <Link
                                 key={category.name}
                                 to={category.link}
-                                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+                                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 dora-card dora-glow-cursor"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
                             >
@@ -242,7 +244,7 @@ export default function Home() {
                         <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-semibold rounded-full mb-4 tracking-wide uppercase">
                             Step by Step
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4">
                             Home Building Guide
                         </h2>
                         <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -256,7 +258,7 @@ export default function Home() {
                         {steps.map((step, index) => (
                             <div
                                 key={step.number}
-                                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+                                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 magnetic-hover"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
                             >
@@ -270,7 +272,7 @@ export default function Home() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
                                     {/* Step number badge */}
-                                    <div className="absolute top-4 left-4 w-10 h-10 bg-accent-orange rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                    <div className="absolute top-4 left-4 w-10 h-10 bg-accent-orange rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 group-hover:shadow-accent-orange/40 transition-all duration-300">
                                         {step.number}
                                     </div>
                                 </div>
@@ -295,7 +297,7 @@ export default function Home() {
                         <span className="inline-block px-4 py-1.5 bg-emerald-50 text-emerald-600 text-sm font-semibold rounded-full mb-4 tracking-wide uppercase">
                             Real Results
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4">
                             Built with <span className="text-brand-red">JagritiBricks</span>
                         </h2>
                         <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -314,7 +316,7 @@ export default function Home() {
                                 data-aos="fade-up"
                                 data-aos-delay={index * 80}
                             >
-                                <div className={`relative overflow-hidden ${home.size === 'large' ? 'h-full min-h-[420px]' : 'h-64'}`}>
+                                <div className={`relative overflow-hidden ${home.size === 'large' ? 'h-64 sm:h-full sm:min-h-[420px]' : 'h-52 sm:h-64'}`}>
                                     <img
                                         src={home.image}
                                         alt={`Home by ${home.name}`}
@@ -356,23 +358,23 @@ export default function Home() {
 
                     {/* Stats bar */}
                     <div
-                        className="mt-14 bg-white rounded-2xl shadow-sm border border-gray-100 p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+                        className="mt-10 md:mt-14 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center"
                         data-aos="fade-up"
                     >
                         <div>
-                            <div className="text-3xl md:text-4xl font-bold text-brand-red mb-1">500+</div>
+                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-red mb-1">500+</div>
                             <p className="text-gray-500 text-sm">Homes Built</p>
                         </div>
                         <div>
-                            <div className="text-3xl md:text-4xl font-bold text-accent-orange mb-1">15+</div>
+                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent-orange mb-1">15+</div>
                             <p className="text-gray-500 text-sm">Cities Served</p>
                         </div>
                         <div>
-                            <div className="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">98%</div>
+                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-emerald-600 mb-1">98%</div>
                             <p className="text-gray-500 text-sm">Happy Customers</p>
                         </div>
                         <div>
-                            <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-1">10+</div>
+                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 mb-1">10+</div>
                             <p className="text-gray-500 text-sm">Years Experience</p>
                         </div>
                     </div>
@@ -392,7 +394,7 @@ export default function Home() {
                 </div>
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-white" data-aos="fade-up">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold mb-4 text-white" data-aos="fade-up">
                         Ready to Build Your Dream Home?
                     </h2>
                     <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">

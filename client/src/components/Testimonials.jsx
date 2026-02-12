@@ -171,8 +171,8 @@ export default function Testimonials() {
                                 key={index}
                                 onClick={() => goToSlide(index)}
                                 className={`transition-all duration-300 rounded-full ${index === currentIndex
-                                        ? 'w-10 h-3 bg-brand-red'
-                                        : 'w-3 h-3 bg-gray-300 hover:bg-brand-red/50'
+                                    ? 'w-10 h-3 bg-brand-red'
+                                    : 'w-3 h-3 bg-gray-300 hover:bg-brand-red/50'
                                     }`}
                                 aria-label={`Go to testimonial ${index + 1}`}
                             />
