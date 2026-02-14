@@ -95,7 +95,7 @@ export default function Footer() {
                                 Have questions? We're available on WhatsApp for instant support.
                             </p>
                             <button
-                                onClick={() => window.open(`https://wa.me/${settings.whatsapp_number || '919876543210'}`, '_blank')}
+                                onClick={() => window.open(`https://wa.me/${settings.whatsapp_number || '917080443439'}`, '_blank')}
                                 className="w-full bg-[#25D366] hover:bg-[#1ebe5b] text-white px-4 py-3 rounded-xl transition-all font-bold flex items-center justify-center space-x-2 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-green-500/20 text-sm"
                             >
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

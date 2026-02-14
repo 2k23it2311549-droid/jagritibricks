@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useSiteSettings } from '../context/SiteSettingsContext'
+import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 
 export default function Checkout() {
     const { cart, getCartTotal, clearCart } = useCart()
     const { settings } = useSiteSettings()
+    const { user } = useAuth()
     // ...
     // Helper to calculate totals
     const subtotal = getCartTotal()
@@ -44,15 +46,17 @@ export default function Checkout() {
     const handlePlaceOrder = async () => {
         setLoading(true)
         try {
-            const { data: { user } } = await supabase.auth.getUser()
+            // Use user from AuthContext (simple_users)
 
             // 1. Create Order
             const orderData = {
-                user_id: user ? user.id : null,
+                // simple_user_id links to our new custom auth table
+                simple_user_id: user ? user.id : null,
+                user_id: null, // Explicitly null as we are bypassing auth.users
                 status: 'pending',
                 total_amount: getCartTotal(),
                 payment_mode: 'COD',
-                delivery_address: {
+                delivery_address: JSON.stringify({
                     name: formData.name,
                     phone: formData.phone,
                     email: formData.email,
@@ -60,10 +64,26 @@ export default function Checkout() {
                     city: formData.city,
                     state: formData.state,
                     pincode: formData.pincode
-                },
+                }), // Storing as JSON string if schema allows, or text. Schema says text. 
+                // Wait, schema says delivery_address text. Earlier code was sending object?
+                // Let's check schema: delivery_address text. 
+                // Better to store as formatted string for now to match previous behavior/expectations or JSON string.
+                // The previous code was sending an object: delivery_address: { ... }
+                // If the column is text, Supabase might reject object or cast it. 
+                // Let's format it as a readable string for safety since "text" type.
+
+                // actually, let's keep it consistent with what might have worked or failed before.
+                // The prompt says "change logic completely".
+                // I will store JSON string to be safe.
+
                 notes: formData.notes
-                // delivery_date is optional/null initially
             }
+
+            // Quick fix for delivery_address format if needed
+            // Actually, let's look at the previous code. It was passing an object. 
+            // Postgres 'text' column can accept JSON string. 
+            // To be safe, I'll JSON.stringify it.
+
 
             const { data: order, error: orderError } = await supabase
                 .from('orders')
@@ -95,7 +115,7 @@ export default function Checkout() {
             }
         } catch (error) {
             console.error('Error placing order:', error)
-            alert('Failed to place order. Please try again.')
+            alert(`Failed to place order: ${error.message || JSON.stringify(error)}`)
         } finally {
             setLoading(false)
         }

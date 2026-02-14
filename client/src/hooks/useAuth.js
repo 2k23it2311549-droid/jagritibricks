@@ -50,7 +50,7 @@ export function useAuth() {
         if (!user) return false
 
         const { data, error } = await supabase
-            .from('users')
+            .from('simple_users')
             .select('role')
             .eq('id', user.id)
             .single()

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
 
 const AuthContext = createContext({})
@@ -7,87 +7,117 @@ export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-    const [session, setSession] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    // Load user from localStorage on mount
     useEffect(() => {
-        console.log("AuthProvider: Initializing...")
-
-        // Timeout fallback - ensure we don't hang forever
-        const timeout = setTimeout(() => {
-            console.warn("AuthProvider: Session check timed out after 5s")
-            setLoading(false)
-        }, 5000)
-
-        // Check active session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            clearTimeout(timeout)
-            console.log("AuthProvider: Session check complete", session ? "Session found" : "No session")
-            setSession(session)
-            setUser(session?.user ?? null)
-            setLoading(false)
-        }).catch((err) => {
-            clearTimeout(timeout)
-            console.error("Session check failed:", err)
-            setLoading(false)
-        })
-
-        // Listen for changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            console.log("AuthProvider: Auth state change:", _event)
-            setSession(session)
-            setUser(session?.user ?? null)
-            setLoading(false)
-        })
-
-        return () => {
-            clearTimeout(timeout)
-            subscription.unsubscribe()
+        const storedUser = localStorage.getItem('simple_user')
+        if (storedUser) {
+            setUser(JSON.parse(storedUser))
         }
+        setLoading(false)
     }, [])
 
-    const signIn = async (data) => {
+    const signUp = async ({ email, password, options }) => {
         try {
-            const result = await supabase.auth.signInWithPassword(data)
-            if (result.error) throw result.error
-            return result
+            // "email" here is actually "username@jagritibricks.com" or similar
+            // We extract the username and other details
+            const username = options.data.username
+            const phone = options.data.phone
+            // const displayName = options.data.display_name
+
+            // Check if username exists
+            const { data: existingUser } = await supabase
+                .from('simple_users')
+                .select('id')
+                .eq('username', username)
+                .single()
+
+            if (existingUser) {
+                return { error: { message: 'Username already taken' } }
+            }
+
+            // Create new user
+            const { data, error } = await supabase
+                .from('simple_users')
+                .insert([
+                    {
+                        username,
+                        password, // Storing password as provided (simple auth request)
+                        phone,
+                        role: 'user'
+                    }
+                ])
+                .select()
+                .single()
+
+            if (error) return { error }
+
+            return { data: { user: data }, error: null }
         } catch (error) {
-            console.error("Login error:", error.message)
-            return { error }
+            return { error: { message: error.message } }
+        }
+    }
+
+    const signIn = async ({ email, password }) => {
+        try {
+            // Determine username from email if provided in that format
+            let username = email
+            if (email.includes('@')) {
+                username = email.split('@')[0]
+            }
+
+            const { data, error } = await supabase
+                .from('simple_users')
+                .select('*')
+                .eq('username', username)
+                .eq('password', password)
+                .single()
+
+            if (error || !data) {
+                return { error: { message: 'Invalid username or password' } }
+            }
+
+            // Create a session-like user object
+            const userObj = {
+                id: data.id,
+                email: email, // Keep purely for compatibility
+                user_metadata: {
+                    username: data.username,
+                    role: data.role,
+                    phone: data.phone
+                },
+                aud: 'authenticated',
+                created_at: data.created_at
+            }
+
+            localStorage.setItem('simple_user', JSON.stringify(userObj))
+            setUser(userObj)
+
+            return { data: { user: userObj }, error: null }
+        } catch (error) {
+            return { error: { message: error.message } }
         }
     }
 
     const signOut = async () => {
-        try {
-            await supabase.auth.signOut()
-            setSession(null)
-            setUser(null)
-        } catch (error) {
-            console.error("Logout error:", error.message)
-        }
+        localStorage.removeItem('simple_user')
+        setUser(null)
+        window.location.href = '/' // Force redirect
+        return { error: null }
     }
 
     const value = {
-        signUp: (data) => supabase.auth.signUp(data),
+        signUp,
         signIn,
         signOut,
         user,
-        session,
         loading
     }
 
     return (
         <AuthContext.Provider value={value}>
-            {loading ? (
-                <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="w-12 h-12 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
-                        <p className="text-gray-500 font-medium animate-pulse">Loading JagritiBricks...</p>
-                    </div>
-                </div>
-            ) : (
-                children
-            )}
+            {!loading && children}
         </AuthContext.Provider>
     )
 }

@@ -35,7 +35,11 @@ export default function LoginModal({ isOpen, onClose }) {
             // On success, close the modal. 
             onClose()
         } catch (error) {
-            setError(error.message === 'Invalid login credentials' ? 'Invalid username or password' : error.message)
+            if (error.message === 'Invalid login credentials') {
+                setError('Invalid username or password')
+            } else {
+                setError('Login failed. Please check your credentials.')
+            }
         } finally {
             setLoading(false)
         }

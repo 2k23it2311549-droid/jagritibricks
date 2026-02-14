@@ -1,0 +1,33 @@
+-- Drop Foreign Key Tables first
+DROP TABLE IF EXISTS public.inventory_logs CASCADE;
+DROP TABLE IF EXISTS public.admin_logs CASCADE;
+DROP TABLE IF EXISTS public.order_items CASCADE;
+DROP TABLE IF EXISTS public.order_status_history CASCADE;
+DROP TABLE IF EXISTS public.orders CASCADE;
+DROP TABLE IF EXISTS public.quotes CASCADE;
+DROP TABLE IF EXISTS public.inquiry_items CASCADE;
+DROP TABLE IF EXISTS public.inquiry_status_history CASCADE;
+DROP TABLE IF EXISTS public.inquiries CASCADE;
+DROP TABLE IF EXISTS public.discounts CASCADE;
+DROP TABLE IF EXISTS public.product_variants CASCADE;
+DROP TABLE IF EXISTS public.products CASCADE;
+DROP TABLE IF EXISTS public.categories CASCADE;
+DROP TABLE IF EXISTS public.addresses CASCADE;
+DROP TABLE IF EXISTS public.settings CASCADE;
+DROP TABLE IF EXISTS public.delivery_zones CASCADE;
+DROP TABLE IF EXISTS public.site_content CASCADE;
+DROP TABLE IF EXISTS public.site_settings CASCADE;
+DROP TABLE IF EXISTS public.contact_messages CASCADE;
+DROP TABLE IF EXISTS public.users CASCADE;
+
+-- Drop Types (Enums)
+DROP TYPE IF EXISTS public.order_status CASCADE;
+DROP TYPE IF EXISTS public.payment_status CASCADE;
+DROP TYPE IF EXISTS public.payment_method CASCADE;
+DROP TYPE IF EXISTS public.inquiry_status CASCADE;
+DROP TYPE IF EXISTS public.quote_status CASCADE;
+DROP TYPE IF EXISTS public.user_role CASCADE;
+DROP TYPE IF EXISTS public.discount_type CASCADE;
+DROP TYPE IF EXISTS public.discount_scope CASCADE;
+DROP TYPE IF EXISTS public.inventory_change_type CASCADE;
+DROP TYPE IF EXISTS public.product_unit CASCADE;

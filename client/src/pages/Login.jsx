@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Helmet } from 'react-helmet-async'
+import { supabase } from '../lib/supabaseClient'
+import Toast from '../components/Toast'
 
 export default function Login() {
     const [username, setUsername] = useState('')
@@ -12,6 +14,10 @@ export default function Login() {
     const { signIn, signOut, user } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
+    const [resetUsername, setResetUsername] = useState('')
+    const [resetLoading, setResetLoading] = useState(false)
+    const [toast, setToast] = useState(null)
 
     // Redirect if already logged in
     useEffect(() => {
@@ -53,8 +59,6 @@ export default function Login() {
             // Enhanced error messages
             if (error.message === 'Invalid login credentials') {
                 setError('Invalid username or password. Please check your credentials and try again.')
-            } else if (error.message.includes('Email not confirmed')) {
-                setError('Please verify your email address before logging in.')
             } else if (error.message.includes('Admin')) {
                 setError(error.message)
             } else {
@@ -62,6 +66,36 @@ export default function Login() {
             }
         } finally {
             setLoading(false)
+        }
+    }
+
+    const handleForgotPassword = async (e) => {
+        e.preventDefault()
+        if (!resetUsername.trim()) {
+            setToast({ message: 'Please enter your username', type: 'error' })
+            return
+        }
+
+        setResetLoading(true)
+        try {
+            const { data, error } = await supabase.rpc('request_password_reset', {
+                username_input: resetUsername.trim()
+            })
+
+            if (error) throw error
+
+            setToast({
+                message: 'If your account exists, a reset request has been sent to the admin.',
+                type: 'success',
+                duration: 5000
+            })
+            setForgotPasswordOpen(false)
+            setResetUsername('')
+        } catch (error) {
+            console.error(error)
+            setToast({ message: 'Failed to send request. Please try again.', type: 'error' })
+        } finally {
+            setResetLoading(false)
         }
     }
 
@@ -172,6 +206,16 @@ export default function Login() {
                                 </button>
                             </div>
                         </div>
+
+                        <div className="flex justify-end">
+                            <button
+                                type="button"
+                                onClick={() => setForgotPasswordOpen(true)}
+                                className="text-sm font-medium text-brand-red hover:text-red-700 transition-colors"
+                            >
+                                Forgot Password?
+                            </button>
+                        </div>
                     </div>
 
                     <button
@@ -200,6 +244,60 @@ export default function Login() {
                     </p>
                 </div>
             </div>
+            {/* Forgot Password Modal */}
+            {forgotPasswordOpen && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm animate-fadeIn">
+                    <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 animate-scaleIn">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-bold text-gray-900">Reset Password Request</h3>
+                            <button onClick={() => setForgotPasswordOpen(false)} className="text-gray-400 hover:text-gray-600">
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="mb-6">
+                            <p className="text-gray-600 mb-2">Enter your username to request a password reset.</p>
+                            <p className="text-sm text-gray-500">The admin will be notified and can reset it for you.</p>
+                        </div>
+
+                        <form onSubmit={handleForgotPassword}>
+                            <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                                <input
+                                    type="text"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red outline-none transition-all"
+                                    placeholder="Enter your username"
+                                    value={resetUsername}
+                                    onChange={(e) => setResetUsername(e.target.value)}
+                                    autoFocus
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setForgotPasswordOpen(false)}
+                                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={resetLoading || !resetUsername}
+                                    className="px-6 py-2 bg-gradient-to-r from-brand-red to-red-600 text-white rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+                                >
+                                    {resetLoading ? 'Sending...' : 'Send Request'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     )
 }

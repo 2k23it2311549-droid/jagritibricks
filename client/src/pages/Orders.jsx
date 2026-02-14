@@ -1,24 +1,30 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
+import { useAuth } from '../context/AuthContext'
 import { Helmet } from 'react-helmet-async'
 
 export default function Orders() {
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
+    const { user } = useAuth()
 
     useEffect(() => {
-        fetchOrders()
-    }, [])
+        // If needed, check user login status here or rely on AuthContext loading
+        if (user) {
+            fetchOrders()
+        } else {
+            // Optional: redirect if not logged in, but AuthContext might still be loading
+            // For now, let's just wait for user to be truthy or handle it gracefully
+            setLoading(false)
+        }
+    }, [user])
 
     const fetchOrders = async () => {
+        setLoading(true)
         try {
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) {
-                navigate('/login')
-                return
-            }
+            if (!user) return
 
             const { data, error } = await supabase
                 .from('orders')
@@ -33,7 +39,7 @@ export default function Orders() {
                         )
                     )
                 `)
-                .eq('user_id', user.id)
+                .eq('simple_user_id', user.id)
                 .order('created_at', { ascending: false })
 
             if (error) throw error
