@@ -3,35 +3,35 @@ import { useState, useEffect, useRef } from 'react'
 const testimonials = [
     {
         id: 1,
-        name: 'Rajesh Kumar',
-        location: 'Jaipur, Rajasthan',
+        name: 'Rajesh Gupta',
+        location: 'Swaroop Nagar, Kanpur',
         role: 'Homeowner',
         image: 'https://i.pravatar.cc/150?img=12',
         rating: 5,
-        text: 'JagritiBricks made building my dream home so easy! The quality of materials is top-notch, and the factory-direct pricing saved me lakhs. Highly recommended!'
+        text: 'JagritiBricks made building my dream home in Kanpur so easy! The quality of materials is top-notch, and the factory-direct pricing saved me lakhs. Highly recommended!'
     },
     {
         id: 2,
-        name: 'Priya Sharma',
-        location: 'Lucknow, UP',
-        role: 'Builder',
+        name: 'Priya Awasthi',
+        location: 'Civil Lines, Kanpur',
+        role: 'Interior Designer',
         image: 'https://i.pravatar.cc/150?img=45',
         rating: 5,
-        text: 'Fast delivery and excellent customer service. We used their TMT steel and bricks for our housing project. The team was very professional and helped us meet our deadlines.'
+        text: 'Fast delivery across Kanpur and excellent customer service. We used their TMT steel and bricks for our latest project near Z Square. Professional team!'
     },
     {
         id: 3,
         name: 'Vikram Singh',
-        location: 'Bhopal, MP',
+        location: 'Kidwai Nagar, Kanpur',
         role: 'Contractor',
         image: 'https://i.pravatar.cc/150?img=33',
         rating: 5,
-        text: 'Best prices in the market without compromising on quality. The lab-tested materials give complete peace of mind. Been using JagritiBricks for all my projects now.'
+        text: 'Best prices in the local market without compromising on quality. The lab-tested materials give complete peace of mind. Been using JagritiBricks for all my Kanpur projects.'
     },
     {
         id: 4,
-        name: 'Sunita Devi',
-        location: 'Delhi NCR',
+        name: 'Sunita Yadav',
+        location: 'Kalyanpur, Kanpur',
         role: 'Homeowner',
         image: 'https://i.pravatar.cc/150?img=47',
         rating: 5,

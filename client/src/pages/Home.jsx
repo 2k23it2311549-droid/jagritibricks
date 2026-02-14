@@ -9,25 +9,25 @@ export default function Home() {
     const categories = [
         {
             name: 'Cement',
-            image: 'https://images.unsplash.com/photo-1590937276225-10597839ebe7?auto=format&fit=crop&q=80&w=600',
+            image: '/img/cement.jpeg',
             description: 'Premium quality cement bags',
             link: '/products?category=cement'
         },
         {
             name: 'Bricks',
-            image: 'https://images.unsplash.com/photo-1590075865003-e48277faa558?auto=format&fit=crop&q=80&w=600',
+            image: '/img/brickimage.jpg',
             description: 'Factory-direct clay and fly ash bricks',
             link: '/products?category=bricks'
         },
         {
             name: 'Sariya (TMT Steel)',
-            image: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&q=80&w=600',
+            image: '/img/tmt.jpeg',
             description: 'High-strength TMT steel bars',
             link: '/products?category=sariya'
         },
         {
             name: 'Sand',
-            image: 'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&q=80&w=600',
+            image: '/img/sand.jpeg',
             description: 'M-Sand and river sand for construction',
             link: '/products?category=sand'
         }
@@ -37,19 +37,19 @@ export default function Home() {
         {
             title: 'Factory-Direct Pricing',
             description: 'No middlemen, no markup. Get the best prices directly from manufacturers and save up to 30% on every order.',
-            image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600',
+            image: '/img/hero-jagriti-stack.jpg',
             accent: 'brand-red'
         },
         {
             title: 'Fast Local Delivery',
             description: 'Reliable delivery straight to your construction site. Track your order in real-time and get materials when you need them.',
-            image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600',
+            image: '/img/hero-worker.jpg',
             accent: 'accent-orange'
         },
         {
             title: 'Quality Assured',
             description: 'Every product is lab-tested and certified for strength and durability. Build with confidence knowing you have the best.',
-            image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
+            image: '/img/hero-modern.jpg',
             accent: 'emerald-600'
         }
     ]
@@ -59,63 +59,69 @@ export default function Home() {
             number: 1,
             title: 'Choose Ideal Land',
             description: 'Location, accessibility, and other factors that matter!',
-            image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600'
+            image: '/img/hero-house.jpg'
         },
         {
             number: 2,
             title: 'Planning & Design',
             description: 'Work with architects to create a functional blueprint.',
-            image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600'
+            image: '/img/hero-modern.jpg'
         },
         {
             number: 3,
             title: 'Budgeting & Materials',
             description: 'Estimate costs accurately and select the right materials.',
-            image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=600'
+            image: '/img/hero-jagriti-stack.jpg'
         },
         {
             number: 4,
             title: 'Construction Techniques',
             description: 'Understand best practices for foundation and masonry.',
-            image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=600'
+            image: '/img/hero-worker.jpg'
         }
     ]
 
     const customerHomes = [
         {
-            image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home1.jpeg',
             name: 'Rajesh Sharma',
-            location: 'Jaipur, Rajasthan',
+            location: 'Swaroop Nagar, Kanpur',
             size: 'large'
         },
         {
-            image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home2.jpeg',
             name: 'Sunita Devi',
-            location: 'Lucknow, UP',
+            location: 'Civil Lines, Kanpur',
             size: 'small'
         },
         {
-            image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home3.jpeg',
             name: 'Vikram Singh',
-            location: 'Bhopal, MP',
+            location: 'Kidwai Nagar, Kanpur',
             size: 'small'
         },
         {
-            image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home4.jpeg',
             name: 'Anita Gupta',
-            location: 'Indore, MP',
+            location: 'Kalyanpur, Kanpur',
             size: 'small'
         },
         {
-            image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home5.jpeg',
             name: 'Manoj Patel',
-            location: 'Ahmedabad, Gujarat',
+            location: 'Kakadeo, Kanpur',
             size: 'large'
         },
         {
-            image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800',
+            image: '/img/home6.jpeg',
             name: 'Kavita Joshi',
-            location: 'Udaipur, Rajasthan',
+            location: 'Govind Nagar, Kanpur',
+            size: 'small'
+        },
+        {
+            image: '/img/home7.jpeg',
+            name: 'Amit Verma',
+            location: 'Shyam Nagar, Kanpur',
             size: 'small'
         }
     ]
@@ -366,8 +372,8 @@ export default function Home() {
                             <p className="text-gray-500 text-sm">Homes Built</p>
                         </div>
                         <div>
-                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent-orange mb-1">15+</div>
-                            <p className="text-gray-500 text-sm">Cities Served</p>
+                            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent-orange mb-1">1</div>
+                            <p className="text-gray-500 text-sm">City Served (Kanpur)</p>
                         </div>
                         <div>
                             <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-emerald-600 mb-1">98%</div>

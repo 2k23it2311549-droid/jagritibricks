@@ -356,6 +356,7 @@ export default function Signup() {
                                             {passwordStrength.label}
                                         </span>
                                     </div>
+                                    <p className="font-bold text-lg text-green-600 mb-1">+91 9044899783</p>
                                     <p className="mt-1 text-xs text-gray-500 ml-1">
                                         Minimum 4 characters required
                                     </p>

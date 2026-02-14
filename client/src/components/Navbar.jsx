@@ -48,10 +48,13 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2 shrink-0 group transition-transform hover:scale-105 duration-200">
-                        <div className="w-9 h-9 bg-gradient-to-br from-brand-red to-red-600 rounded-lg flex items-center justify-center shadow-md shadow-brand-red/30 group-hover:shadow-lg group-hover:shadow-brand-red/40 transition-all duration-200">
-                            <span className="text-white text-lg">🧱</span>
-                        </div>
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-3 shrink-0 group transition-transform hover:scale-105 duration-200">
+                        <img
+                            src="/img/logo.png"
+                            alt="JagritiBricks Logo"
+                            className="h-14 md:h-16 w-auto object-contain drop-shadow-md group-hover:drop-shadow-lg transition-all duration-300"
+                        />
                         <span className="text-xl font-serif font-bold text-gray-900 tracking-wide">
                             Jagriti<span className="text-brand-red">Bricks</span>
                         </span>
@@ -142,6 +145,20 @@ export default function Navbar() {
                     }`}
             >
                 <div className="px-4 py-3 space-y-1 bg-white">
+                    {/* Mobile Menu Logo */}
+                    <div className="px-4 py-2 mb-2 flex items-center justify-center border-b border-gray-100/50 pb-4">
+                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2 group">
+                            <img 
+                                src="/img/logo.png" 
+                                alt="JagritiBricks" 
+                                className="h-10 w-auto object-contain drop-shadow-sm"
+                            />
+                            <span className="text-xl font-serif font-bold text-gray-900 tracking-wide">
+                                Jagriti<span className="text-brand-red">Bricks</span>
+                            </span>
+                        </Link>
+                    </div>
+
                     {navLinks.map((link) => (
                         <Link
                             key={link.path}

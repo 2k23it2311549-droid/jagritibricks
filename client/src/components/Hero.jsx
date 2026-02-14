@@ -4,22 +4,22 @@ import { supabase } from '../lib/supabaseClient'
 
 const defaultSlides = [
     {
-        image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1920',
-        title: 'Build Stronger.',
-        subtitle: 'Build Smarter.',
-        description: 'Premium construction materials delivered directly from factory to your site — at unbeatable prices.'
+        image: '/img/heroimage1.jpeg',
+        title: 'Authentic JAGRITI',
+        subtitle: 'Bricks.',
+        description: 'The mark of quality you can trust. High-strength, lab-tested red bricks delivered directly to your site from our Kanpur kiln.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=1920',
-        title: 'Quality You Can',
-        subtitle: 'Trust.',
-        description: 'Lab-tested bricks, cement, TMT steel & sand. Every product meets the highest industry standards.'
+        image: '/img/hero-house.jpg',
+        title: 'Build Your',
+        subtitle: 'Dream Home.',
+        description: 'From foundation to finishing, we provide the premium materials you need to build a home that lasts for generations.'
     },
     {
-        image: 'https://images.unsplash.com/photo-1590075865003-e48277faa558?auto=format&fit=crop&q=80&w=1920',
-        title: 'From Factory',
-        subtitle: 'To Foundation.',
-        description: 'Cut out the middlemen. Save up to 30% on every order with our direct-from-manufacturer pricing.'
+        image: '/img/brickimage.jpg',
+        title: 'Expert',
+        subtitle: 'Craftsmanship.',
+        description: 'Building is an art. We supply the perfect canvas with uniform, high-quality bricks that make construction easier and faster.'
     }
 ]
 
@@ -28,37 +28,37 @@ export default function Hero() {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isTransitioning, setIsTransitioning] = useState(false)
 
-    useEffect(() => {
-        fetchHeroContent()
-    }, [])
+    // useEffect(() => {
+    //     fetchHeroContent()
+    // }, [])
 
-    const fetchHeroContent = async () => {
-        try {
-            const { data } = await supabase
-                .from('site_content')
-                .select('*')
-                .eq('section', 'hero')
+    // const fetchHeroContent = async () => {
+    //     try {
+    //         const { data } = await supabase
+    //             .from('site_content')
+    //             .select('*')
+    //             .eq('section', 'hero')
 
-            if (data && data.length > 0) {
-                // Map CMS key-value pairs to slide structure
-                // Assuming we want to override the first slide with CMS data for now
-                // Or if we structured the CMS keys as 'title_1', 'image_1', etc.
+    //         if (data && data.length > 0) {
+    //             // Map CMS key-value pairs to slide structure
+    //             // Assuming we want to override the first slide with CMS data for now
+    //             // Or if we structured the CMS keys as 'title_1', 'image_1', etc.
 
-                const slide1 = { ...defaultSlides[0] }
-                data.forEach(item => {
-                    if (item.key === 'title_1') slide1.title = item.value
-                    if (item.key === 'subtitle_1') slide1.subtitle = item.value
-                    if (item.key === 'description_1') slide1.description = item.value
-                    if (item.key === 'image_1') slide1.image = item.value
-                })
+    //             const slide1 = { ...defaultSlides[0] }
+    //             data.forEach(item => {
+    //                 if (item.key === 'title_1') slide1.title = item.value
+    //                 if (item.key === 'subtitle_1') slide1.subtitle = item.value
+    //                 if (item.key === 'description_1') slide1.description = item.value
+    //                 if (item.key === 'image_1') slide1.image = item.value
+    //             })
 
-                // For this demo, we'll just update the first slide with dynamic content
-                setHeroSlides([slide1, ...defaultSlides.slice(1)])
-            }
-        } catch (error) {
-            console.error('Error fetching hero content:', error)
-        }
-    }
+    //             // For this demo, we'll just update the first slide with dynamic content
+    //             setHeroSlides([slide1, ...defaultSlides.slice(1)])
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching hero content:', error)
+    //     }
+    // }
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -132,7 +132,7 @@ export default function Hero() {
                                 }`}
                         >
                             <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                            <span className="text-white/90 text-xs md:text-sm font-medium">Factory-Direct Pricing • Save up to 30%</span>
+                            <span className="text-white/90 text-xs md:text-sm font-medium">Serving Only in Kanpur • Factory-Direct Pricing</span>
                         </div>
 
                         {/* Title */}

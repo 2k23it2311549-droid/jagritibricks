@@ -8,15 +8,24 @@ export function useSiteSettings() {
 }
 
 export function SiteSettingsProvider({ children }) {
-    const [settings, setSettings] = useState({
-        phone: '+91 9876543210',
-        email: 'info@jagritibricks.com',
-        address: '123 Construction Avenue, Industrial Area, City - 123456',
+    const defaultSettings = {
+        site_title: 'JagritiBricks',
+        site_description: 'Premium red bricks and construction materials in Kanpur',
+        contact_email: 'info@jagritibricks.com',
+        phone: '+91 9044899783',
+        whatsapp_number: '919044899783',
+        address: 'Bandimata bypass chaubepur, Kanpur',
         facebook_url: 'https://facebook.com',
         instagram_url: 'https://instagram.com',
         twitter_url: 'https://twitter.com',
-        whatsapp_number: '919876543210',
-        maintenance_mode: false,
+        delivery_fee: 500,
+        free_shipping_threshold: 10000,
+        announcement_text: 'Serving Kanpur with premium quality bricks!',
+        show_announcement: true,
+        maintenance_mode: false
+    }
+    const [settings, setSettings] = useState({
+        ...defaultSettings,
         loading: true
     })
 

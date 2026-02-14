@@ -32,6 +32,7 @@ import { useSiteSettings } from './context/SiteSettingsContext'
 import MainLayout from './components/MainLayout'
 import DoraEffects from './components/DoraEffects'
 import WelcomePopup from './components/WelcomePopup'
+import RouteTransition from './components/RouteTransition'
 
 function MaintenanceCheck({ children }) {
     const { settings } = useSiteSettings()
@@ -46,6 +47,7 @@ function MaintenanceCheck({ children }) {
 
     return children
 }
+
 
 function App() {
     useEffect(() => {
@@ -67,26 +69,28 @@ function App() {
                             <ScrollToTop />
 
                             <MaintenanceCheck>
-                                <Routes>
-                                    {/* Public Customer Routes with MainLayout */}
-                                    <Route element={<MainLayout />}>
-                                        <Route path="/" element={<Home />} />
-                                        <Route path="/products" element={<Products />} />
-                                        <Route path="/products/:id" element={<ProductDetails />} />
-                                        <Route path="/cart" element={<CartPage />} />
-                                        <Route path="/checkout" element={<Checkout />} />
-                                        <Route path="/about" element={<About />} />
-                                        <Route path="/contact" element={<Contact />} />
-                                        <Route path="/login" element={<Login />} />
-                                        <Route path="/signup" element={<Signup />} />
-                                        <Route path="/orders" element={<Orders />} />
-                                        <Route path="/privacy" element={<Privacy />} />
-                                        <Route path="/terms" element={<Terms />} />
-                                        <Route path="/shipping" element={<Shipping />} />
-                                        <Route path="/returns" element={<Returns />} />
-                                        <Route path="/faq" element={<FAQ />} />
-                                    </Route>
-                                </Routes>
+                                <RouteTransition>
+                                    <Routes>
+                                        {/* Public Customer Routes with MainLayout */}
+                                        <Route element={<MainLayout />}>
+                                            <Route path="/" element={<Home />} />
+                                            <Route path="/products" element={<Products />} />
+                                            <Route path="/products/:id" element={<ProductDetails />} />
+                                            <Route path="/cart" element={<CartPage />} />
+                                            <Route path="/checkout" element={<Checkout />} />
+                                            <Route path="/about" element={<About />} />
+                                            <Route path="/contact" element={<Contact />} />
+                                            <Route path="/login" element={<Login />} />
+                                            <Route path="/signup" element={<Signup />} />
+                                            <Route path="/orders" element={<Orders />} />
+                                            <Route path="/privacy" element={<Privacy />} />
+                                            <Route path="/terms" element={<Terms />} />
+                                            <Route path="/shipping" element={<Shipping />} />
+                                            <Route path="/returns" element={<Returns />} />
+                                            <Route path="/faq" element={<FAQ />} />
+                                        </Route>
+                                    </Routes>
+                                </RouteTransition>
                             </MaintenanceCheck>
                         </Router>
                     </SiteSettingsProvider>

@@ -229,7 +229,7 @@ export default function Checkout() {
                                             value={formData.phone}
                                             onChange={handleInputChange}
                                             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-brand-red focus:border-transparent"
-                                            placeholder="+91 9876543210"
+                                            placeholder="+91 9044899783"
                                         />
                                     </div>
                                     <div className="md:col-span-2">

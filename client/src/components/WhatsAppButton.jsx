@@ -9,7 +9,7 @@ export default function WhatsAppButton() {
         const phoneNumber = settings.whatsapp_number || '919876543210'
         const message = encodeURIComponent('Hello! I am interested in ordering construction materials from JagritiBricks.')
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`
-        window.open(whatsappUrl, '_blank')
+        window.open('https://wa.me/919044899783', '_blank')
     }
 
     return (
